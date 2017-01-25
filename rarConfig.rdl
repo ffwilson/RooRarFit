@@ -1,0 +1,202 @@
+/*****************************************************************************
+* Project: BaBar detector at the SLAC PEP-II B-factory
+* Package: RooRarFit
+ *    File: $Id: rarConfig.rdl,v 1.23 2014/09/14 17:33:50 fwilson Exp $
+ * Authors: Lei Zhang
+ * History:
+ *
+ * Copyright (C) 2005-2012, University of California, Riverside
+ *****************************************************************************/
+#ifndef RAR_CONFIG
+#define RAR_CONFIG
+
+#include "TList.h"
+#include "TString.h"
+#include "TObject.h"
+
+#include "rarStrParser.hh"
+
+class rarBasePdf;
+class rarDatasets;
+
+/// \brief Base class for reading in config info
+///
+/// It is the base class for both dataset and pdf classes,
+/// which defines common data and functions to construct
+/// dataset/pdf objects from config files.
+class rarConfig : public TNamed {
+  
+public:
+  rarConfig();
+  rarConfig(const char*configFile, const char*configSec, const char*configStr,
+	    const char *name, const char *title);
+  virtual ~rarConfig();
+  
+  /// \brief Set the master (mlFitter) section name
+  /// \param masterSec The name to set
+  static void setMasterSec(TString masterSec) {_masterSec=masterSec;}
+  
+  /// \brief Return the master (mlFitter) section name
+  /// \return The master (mlFitter) section name
+  TString getMasterSec() const {return _masterSec;}
+  
+  /// \brief Set the action section name
+  /// \param runSec The name to set
+  static void setRunSec(TString runSec) {_runSec=runSec;}
+  
+  /// \brief Return the action section name
+  /// \return The action section name
+  TString getRunSec() const {return _runSec;}
+
+  /// \brief Return the name of param config section
+  /// \return The param config section
+  ///
+  /// The returned param section is the same as the default
+  /// config section in this base class,
+  /// and should be reimplemented by sub-classes
+  /// if that is not the case.
+  virtual TString getVarSec() {return _configSec;}
+  
+  /// \brief Return full observables
+  /// \return The full observables defined
+  virtual RooArgSet *getFullObs() const {return _fullObs;}
+  
+  /// \brief Return primary observables in dataset files
+  /// \return The primary observables defined
+  ///
+  /// This virtual function has not much meaning in this base class
+  /// and should be reimplemented by sub-classes.
+  virtual RooArgSet *getPrimaryObs() {return 0;}
+  
+  /// \brief Return addon columns for datasets
+  /// \return The addon columns defined
+  ///
+  /// This virtual function has not much meaning in this base class
+  /// and should be reimplemented by sub-classes.
+  virtual RooArgSet *getAddOnCols() {return 0;}
+  
+  /// \brief Return the named dataset
+  /// \param name The name of the dataset to return
+  /// \return The dataset found
+  ///
+  /// This virtual function has not much meaning in this base class
+  /// and should be reimplemented by sub-classes.
+  virtual RooDataSet *getData(const char * /* name=0 */) {return 0;}
+  
+  /// \brief Return rarDatasets object
+  /// \return The dataset holder
+  ///
+  /// This virtual function has not much meaning in this base class
+  /// and should be reimplemented by sub-classes.
+  virtual rarDatasets *getDatasets() const {return 0;}
+  
+  /// \brief Return categories defined in rarDatasetDef
+  virtual RooArgSet *getCats() {return &_rarCats;}
+  
+  /// \brief Return the pdf type std::string
+  /// \return The pdf type std::string
+  ///
+  /// This virtual function has not much meaning in this base class
+  /// and should be reimplemented by pdf sub-classes.
+  virtual TString getPdfType() {return "";}
+  
+protected:
+  virtual void init();
+  virtual TString readConfStr(const char *name, const char *val,
+			      const char *secName=0);
+  virtual void setConfStr(const char *name, const char *val=0,
+			  const char *secName=0);
+  virtual void addToConfStr(const char *name, const char *val=0,
+			    const char *secName=0);
+  virtual TString readConfStrCnA(TString configStr, TString defVal);
+  virtual Bool_t isNumber(TString numStr);
+  virtual Bool_t isVarType(TString typeStr);
+  virtual void writeToStr(RooArgSet &aSet, std::string &aStr);
+  virtual void readFromStr(RooArgSet &aSet, std::string &aStr);
+  
+  virtual rarStrParser getVarTNTU(TString varStr, TString option,
+				  TString *fullName=0, TString *fullTitle=0,
+				  TString *varType=0,
+				  TString *Name=0, TString *Title=0,
+				  TString *Unit=0);
+  virtual TString getFullVarName(TString nameStr);
+  virtual TString getFullVarName(TString nameStr,
+				 TString varStr, TString option="");
+  
+  virtual RooAbsReal *createAbsReal(const char *name, const char *title,
+				    const Double_t val,
+				    const Double_t min, const Double_t max,
+				    const char *unit=0);
+  virtual RooAbsReal *createAbsReal(const char *name, const char *title,
+				    const Double_t val=0, const char *unit=0);
+  
+  /// \brief Add created RooRealVar to param list
+  /// \param theVar The var to be added
+  ///
+  /// This virtual function has not much meaning in this base class
+  /// and should be reimplemented by sub-classes.
+  virtual void addToParams(RooRealVar * /* theVar */) {return;}
+  
+  /// \brief Add created RooRealVar to obs list
+  /// \param theVar The var to be added
+  ///
+  /// This virtual function has not much meaning in this base class
+  /// and should be reimplemented by sub-classes.
+  virtual void addToObs(RooRealVar * /* theVar */) {return;}
+  
+  /// \brief Return RooArgList for RooFormulaVar, etc.
+  /// \param fStrParser The parsed tokens of formula Args
+  ///
+  /// This virtual function has not much meaning in this base class
+  /// and should be reimplemented by sub-classes.
+  virtual RooArgList *getFormulaArgs(rarStrParser /* fStrParser */) {return 0;}
+  virtual RooAbsArg *createAbsVar(const char *varStr, const char *option="");
+  virtual RooAbsArg *createAbsVars(TString configName="Coeffs",
+				   RooAbsCollection *argCollA=0,
+				   RooAbsCollection *argCollB=0);
+  virtual RooAbsArg *getAbsVar(TString varName);
+  
+  virtual void setColLimits(RooDataSet *data, Bool_t setLimits=kTRUE);
+  virtual void addColumns(RooDataSet *data, Bool_t addColmns=kTRUE,
+			  Bool_t setLimits=kFALSE);
+  virtual RooDataSet *createDataSet(const char *dsStr, Bool_t &isUB, TString wgtVarName);
+  virtual void computeCorrelations(RooArgList varList, const RooDataSet *data);
+  
+  virtual rarBasePdf *createPdf(const char *configStr);
+  
+  TString getFullFileName(const TString dir, const TString aType, const TString name,
+                          const TString dsName="", const TString msName="",
+                          const TString cfName="");
+  TString getFileName(const TString name) const;
+  
+  TString _configFile; ///< Config file name
+  TString _configSec; ///< Config section name
+  /// \brief Config std::string
+  ///
+  /// It is primarily used to create RooRarFit Pdfs
+  TString _configStr;
+  RooArgSet _configStrSet; ///< Config std::string read in by #readConfStr
+
+  /// \brief Boolean to control if create fundamental or not
+  ///
+  /// For dataset var, yes,
+  /// for pdf paramters, no.
+  /// For explanation on why need to create `fundamental' vars
+  /// for derived observables, see logs as of 28 May 2005 in History file
+  Bool_t _createFundamental;
+  RooArgSet *_fullObs; ///< Full set of observables
+  static TList _rarPdfs; ///< For all created RooRarFit Pdfs
+  static TList _rarVars; ///< For all created vars (by #createAbsVar)
+  static TList _rarOVars; ///< For fundamental counter-vars (by #createAbsVar)
+  static RooArgSet _rarCats; ///< For all created categories
+  static TString _masterSec; ///< Top-level (mlFitter) section name
+  static TString _runSec; ///< Action section name
+  TString _fullNameSchema; ///< Full name schema
+  
+private:
+  rarConfig(const rarConfig&);
+  ClassDef(rarConfig, 0) // RooRarFit config class
+    ;
+};
+
+#endif

@@ -1,0 +1,1724 @@
+## History file
+## Please summarize changes to the RooRarFit code here.
+## Most recent first please.
+
+## Remember to add tag version to rarVersion.hh
+
+03-Oct-2016 Fergus Wilson V00-02-11
+Compiles/links with Root 6 (tested on 6.06.08) although ROOT still 
+has bug in RooStrParser.
+
+24-Sep-2014 Fergus Wilson V00-02-10
+Allow floating of meson radius in Rel Breit Wigner.
+
+22-Sep-2014 Fergus Wilson V00-02-09
+Modified numerator in RooRelBreitWigner to perform better
+
+14-Sep-2014 Fergus Wilson V00-02-08
+Convert to use release 24.5.12. Uses official Root 5.34.10 so BaBar's versiosn ofRooFitModel 
+and RooFitCore no longer relevant.
+
+12-Dec-2013 Fergus Wilson V00-02-07
+Changed from RooComplex to std::complex to eliminate warning messages in ROOT v5.34.13
+
+11-Sep-2013 Fergus Wilson V00-02-06
+Had to add some headers so would compile under Fedora.
+
+08-Aug-2013 Fergus Wilson V00-02-05
+Implement bug fix in rarMLFitter::doProjPlot that Justin Albert found to prevent LLR projections crashing due to memory leaks.
+
+07-Dec-2012 Fergus Wilson V00-02-04
+Remembered rarVersion
+
+07-Dec-2012 Fergus Wilson V00-02-03
+Thanks to Albert Puig, you can now use weights with ascii data files.
+
+04-Jul-2012 Fergus Wilson V00-02-02
+Changed standalone GNUmakefile so it works again on macOSX with root >= 5.32.02
+
+25-May-2012 Fergus Wilson V00-02-01
+WebSrt doesn't allow 3 digit version numbers !
+
+22-May-2012 Fergus Wilson V00-01-104
+Corrected bug spotted by Simon Akar in RooRelBreitWigner that was introduced in V00-01-99.
+
+05-Apr-2012  Fergus Wilson V00-01-103
+Corrected Blatt-Weisskopf spin 0 factor in Relativistic Breit Wigner(0.0->1.0)
+
+02-Apr-2012  Fergus Wilson V00-01-102
+Added a Threshold function
+
+15 Dec 2011 Fergus Wilson V00-01-101
+RooFit in v5.32.00 of Root is incompaible with v5.30, which
+is not backward compatible with 5.26, which is also different to the
+BaBar 5.26 version. The RooDatasets no longer use ntuples/trees
+internally so it is impossible to dump the contents as an ntuple
+tree. To get round this, I have written two rarMLFitter methods
+(createTreeFromDataset and saveAsRootFile) to extract the contents of
+the RooDataset and create an ntuple that is version independent.
+
+24 Nov 2011 Fergus Wilson V00-01-100
+Prepare for public release
+
+26 Aug 2011 Fergus Wilson V00-01-99
+Added RooUniform method but it's only available in newer versions of ROOT or in standalone mode.
+Updated RelBreitWigner so that it can cope with parameters define in units other than GeV.
+Updated documentation.
+
+04 Jul 2011 Fergus Wilson V00-01-98
+Updated missing copyright notices.
+
+21 Jun 2011 Fergus Wilson V00-01-97
+Line 1428 in rarMLFitter.cc returns different results in different
+root versions!
+  RooArgList thisCompCoeffParams(*(thisCompCoeffList[j].getParameters(*_fullObs)));
+Added a work around that may or may not cover all possibilities.
+
+20 Jun 2011 Fergus Wilson V00-01-96
+Added a class rarToyList to make it more obvious in the log file what
+is being included in a toy simulation.
+
+16 Jun 2011 Fergus Wilson V00-01-95 
+Updated copyright message. Removed ancient macro definitions. Deleted
+rarAction* classes as there will never be enough time to develop
+them. Removed remaining #include<math>. Replaced hard-coded numbers
+with const parameters.
+
+16 Jun 2011 Fergus Wilson V00-01-94 
+Cleaned up some of the code to add weights. It still doesn't work for
+ascii files because RooFit no longer has an interface that allows the
+weight to be set for ascii files.
+
+16 Jun 2011 Fergus Wilson V00-01-93
+Projection and SPlots now working in standalone root.
+
+27 May 2011 Fergus Wilson V00-01-92
+In standalone versions: "reduce" now works; can add weighted variable
+but only if reading in data from a root file (because the read method
+for ascii files has no option for adding a weight variable!);
+eliminated "can't add to owned list" error for derived variables.
+
+12 May 2011 Fergus Wilson V00-01-91
+Updated GNUMakefile.new so that it will pick up root libraries in
+v5.28 and v.5.29 when they have to be recompiled using a different
+compiler than the default but unavailable CERN version.
+
+07 Mar 2011 Fergus Wilson V00-01-90 
+Back ported some of the changes need to compile in standalone mode
+under ROOT >= v5.27, which has removed some of the methods available in
+previous versions. Comment in the macro USENEWROOT from rarVersion.hh
+to compile with ROOT version >= 5.27 (probably not the best macro name).
+
+Although the code will compile and run in standalone mode, anything
+that relies on the setWeightVar() method won't work (weight variable
+has to be set when dataset created) and prints a warning. This affects
+datasets if a weight variable is defined and SPlots (which relies on a
+weight). This will need to be fixed later. "reduce" still does not
+work on datasets in standalone mode with RooCategories ("AddOns").
+
+Corrected the GNUmakefile.new for Mac OSX. Changed the "const"-ness of
+some methods to avoid warnings printed by more picky compiler
+versions.
+
+09 Feb 2011 Fergus Wilson V00-01-89
+Added some headers so RooRarFit will still compile under analysis-42
+
+05 Feb 2011 Fergus Wilson V00-01-88
+Updates to the documentation.
+
+05 Feb 2011 Fergus Wilson V00-01-87
+Implemented the Flatte distribution.
+
+27 Jan 2011 Fergus Wilson V00-01-86
+Really commit GNUmakefile.new,
+
+27 Jan 2011 Fergus Wilson V00-01-85
+Committed GNUmakefile.new, first version of a makefile for building on
+mac/linux outside ABA environment.
+
+24 Jan 2011 Fergus Wilson V00-01-84
+Tweaking of tutorial configuration files and make_data.C
+
+9 Dec 2010 Fergus Wilson V00-01-82
+Made a first go at adding missing documentation for newer
+functions. Converted the src/GNUmakefile to use makeinfo/tex
+instaed of texi2html as makeinfo/tex should be available on more
+systems. Documentation now points to CERN for the RooFit functions.
+
+1 Dec 2010 Fergus Wilson V00-01-81
+
+In this tag, the actions contained in rarMLFitter.cc (5300 lines) have
+been split into individual files for each action. A base clase
+rarAction.cc has been created which contains common methods and data
+elements. Each action (pdffit, mlfit, scan, etc...) inherits from this
+class and defines its own unique methods (which have just been copied
+from rarMLFitter.cc). These classes are called "rarAct*.cc" where "*"
+is the action name. A factory class (rarActionFactory.cc) selects the
+right action based on the configuration files. An executable runAction
+currently performs the functions of rarFit for the new code.
+
+As far as the user is concerned everything remains the same and they
+see no change in the output but it should make development easier as
+changes can be made to individual actions or new actions added 
+without affecting the others.
+
+rarMLFitter.cc and rarFit are currently unchanged and the user can
+continue to use them. The new code uses runAction in the same way as
+rarFit so it is possible to compare the new code with the old. However
+in the next tag rarMLFitter.cc should be retired and runAction renamed
+to rarFit.
+
+Some changes have been made to other code mainly to add "const" to
+some parameters and methods to improve coding but there is still lots
+to do.
+
+2 Nov 2010 Fergus Wilson V00-01-80
+combinePlot now stores the plots of the individual modes with the total and
+statistical error NLL curves.
+
+2 Nov 2010 Fergus Wilson V00-01-79
+Remove combineCentralValue option from combinePlot.
+
+2 Nov 2010 Fergus Wilson V00-01-78
+
+I have added a new action combinePlot that will combine up to 10 NLL curves
+from different fits and convolute with systematic errors. This
+replaces the functionality of the combine.C and combine.C macros.
+
+20 Oct 2010 Fergus Wilson V00-01-77
+Update version number.
+
+19 Oct 2010 Fergus Wilson V00-01-76
+Eliminate some of the more obvious warnings when using a picky compiler.
+
+13 Oct 2010 Fergus Wilson V00-01-75
+I've added 4 files to doc/tutorial that can be used for regression
+tests and/or a tutorial. make_data.C will create 3 datasets. The
+datasets contain typical variables like mes, flavour tag and errors on
+Delta t. The datasets can then be analysed using tutorial.config
+(yields, branching fractions, charged CP asymmetries, projections,
+splots and scans) and tutorial_v3.config (time-dependent CP
+asymmetries). README_regression is will contain more information.
+
+10 Sep 2010 Fergus Wilson V00-01-74
+Added Voigtian and Gounaris-Sakurai pi-pi scattering functions.
+
+08 Jul 2010 Fergus Wilson ffw-08Jul10
+Updated RAL details in submitToy. Replaced mlFitNumCPU, pdfFitNumCPU
+and toyFitNumCPU fields with a global useNumCPU that applies to all
+calls. Added a stopwatch to rarFit.cc. Added (but not implemented) a
+wrapper to the calls to fitTo() method.
+
+18 Jun 2010 Fergus Wilson ffw-18Jun10
+Completed replacement of stream headers with Riostream.h. 
+Added a few more headers for standalone compiling.
+Added a timer to the rarFit.cc main program.
+Cleaned up rarVersion.h
+
+15 Jun 2010 Fergus Wilson V00-01-73
+Create an official tag for nightlies.
+
+15 Jun 2010 Fergus Wilson ffw-15Jun10
+Partially updated documentation. Added options pdfFitNumCPU and
+toyFitNumCPU to change the number of CPUs/cores used during PDF and
+Toy fitting. All fitTo() methods now pass parameters the official
+way. Added rarLass and RooLass classes to allow fitting of LASS
+experimental parametrisation.
+
+14 Jun 2010 Fergus Wilson  ffw-14Jun10
+Changes to enable compilation under SL5/RH5, Root 5.26 and
+analysis-52. Added some header files to enable standalone compilation
+outside the BaBar environment. Replaced <iostream> with "Riostream.h"
+from ROOT. The root interface has changed slowly over time so this
+code may not work in ealier versions Added the [MLAct] fit option
+mlFitNumCPU to allow parallelising the mlfit over cores (default=1).
+
+-rarVersion.hh : Comment in USEROOFIT230
+-rarBasePdf.cc : added TAxis.h, TH1F.h. 
+-rarMLFitter.cc : added TTree.h
+-rarConfig.cc : added TTree.h
+-rarNLL.cc : added TAxisI.h, TAxis.h, TMath.h
+-rarMLFitter.cc : replaced old-style "FitOptions" parameter used in fitTo() method with new style for passing parameters.
+
+25 Aug 2008 Joe Tuggle jmt-25Aug08
+-rarMLFitter.cc: Fixed bug in doProjPlot concerning normalization over 
+  conditional observables. Now in the calculation of the likelihoods, 
+  conditional observables are _not_ included in the normalization.
+-rarBasePdf.cc,rarMLFitter.rdl,rarMLFitter.cc: Added XErrorSize option to 
+  actions that plot data. For example, if no x error bars are desired, usage is
+    XErrorSize = 0.0
+  Default is XErrorSize = 1.0
+-rarMLFitter.cc: Added option to save the RooFitResult object in the mlFit 
+  action. The object is saved in the results file. Usage:
+   postMLWriteFitResult = yes
+  Default is postMLWriteFitResult = no.
+-rarMLFitter.cc: Added sPlots by category and asymmetry. Usage is analagous to
+  categories and asymmetry in projPlots. Examples:
+   sPlotCat = tagcat
+   sPlotCat_mes = tagcat
+
+   sPlotAsym = tagflavor
+   sPlotAsym_deltat = tagflavor
+  Note these caveats: sPlots use the quadrature sum of the sWeights as the 
+  uncertainties. However, the asymmetry sPlot will round each bin to the 
+  nearest integer and use errors given by binomial statistics (default for 
+  RooHist::addAsymmetryBin).
+
+25 Jan 2008 Lei Zhang V00-01-72
+-rarMLFitter.cc, rarMinuit.cc, rdl: enable contourPlot
+-doc/patches/RooFitCore-V02-30-00.patch: add patch to fix RooFitCore bugs
+  with RooMinuit
+-rarVersion.hh: disable code for new RooFit version to be compatible with
+  BaBar release
+  To enable code for new RooFit version, uncomment
+  //#define USEROOFIT230
+  in rarVersion.hh
+-doc/patches/RooFitCore-V02-30-00.patch: add RooFit patch
+
+15 Jan 2008 Lei Zhang V00-01-71
+-RooRelBreitWigner.cc, rdl, rarRelBreitWigner.cc, rdl: added by Fergus
+  Wilson
+-rarConfig.cc: changes for rarRelBreitWigner
+-rarMLFitter.cc, rdl:
+  * bug fixed for toys with physCat as the only split cat
+  * disable contourPlot for now due to RooFit bugs
+-rarMinuit.cc, rdl: disable contourPlot for now due to RooFit bugs
+
+23 Oct 2007 Lei Zhang V00-01-69
+-rarBasePdf.cc: Changes for RooFit 2.22
+-rarFit.cc: misc change
+-rarMLFitter.cc, rdl:
+  * Changes for RooFit 2.22
+  * Temp solution for two-step generator
+-rarVersion.hh: Changes for RooFit 2.22
+-doc/Sample_configs/rr2d.config: 3d pdf
+-doc/src/rarProdConfig.texinfo: imporved conditional PDF
+
+09 Aug 2007 Lei Zhang V00-01-68
+-rarBasePdf.cc, rdl:
+  * Better handling pdfFit for conditional Pdf
+  * configs plotWCat and plotWCat_<obs> added so that in pdfPlot for pdfFit,
+    plots will also be done for each type of the cats specified here. It is
+    useful to demonstrate conditional Pdf wrt the independent observable.
+-rarMLFitter.cc: fixed bug for LLR plot wrt total model
+-rarProd.cc: better handling pdfFit for conditional Pdf
+-doc/src/commonPdfConfig.texinfo: add docs for plotWCat and plotWCat_<obs>
+
+15 Jul 2007 Lei Zhang V00-01-67
+-rarBasePdf.cc: enable pdfPlot for simPdf. It might take long time to
+  produce pdfPlot if simPdf is used in pdfFit. If do not want to produce
+  pdfPlot for that pdf, in the pdf config section, add/change
+    pdfPlot = no
+-doc/Sample_configs/rr2d.config: add generic 2-D Pdf using conditional pdf.
+
+29 Jun 2007 Lei Zhang V00-01-66
+-rarProd.cc, rdl: allow multivariate PDF defined in terms of unconditional
+  PDF and conditional PDF. e.g., any 2D PDF P(x,y) can be written as
+    P(x,y) = P(x|y)*P(y)
+  where P(x|y) is the conditional PDF given y.
+  See online doc for configs and examples in section of rarProd Configs.
+
+15 Jun 2007 Lei Zhang V00-01-65
+-rarMLFitter.cc: bug fixed for toys with conditionalObs and Minos
+-doc/patches/RooFitCore-V01-09-02.patch, RooFitCore-V02-00-05.patch,
+  RooFitCore-V02-00-09-03.patch: minor patches for conditionalObs and Minos
+  in RooMCStudy.cc
+
+14 Jun 2007 Lei Zhang V00-01-64
+-rarMLFitter.cc: minor bug fixed so that _protDataset is used instead of
+  _theData
+
+11 Jun 2007 Lei Zhang V00-01-63
+-rarBasePdf.cc, .rdl, rarCompBase.cc, .rdl, rarMLFitter.cc: config
+  toyChkNegativePdf added to check possible negative PDF values during toy
+  study. See doc for more info
+-rarMLFitter.cc: config toyFitMinos added for toy study to turn on
+  Minos for certain parameters. See doc for more info
+
+25 May 2007 Lei Zhang V00-01-62
+-minor changes for migration to sourceforge.net
+-this is the LAST version checked into BaBar CVS system
+-the new webpage is moved to http://rarfit.sourceforge.net
+
+25 Apr 2007 Keith Ulmer
+-add combine_rescale.cc to doc/Sample_scripts/ 
+  See description at top of script.
+
+12 Apr 2007 Yury Kolomensky yury-12apr06a
+- rarFit.cc: 
+  Force RooFit banner to be printed at startup. Very helpful to have
+  this in the logfiles. 
+
+28 Mar 2007 Lei Zhang V00-01-61
+-rarMLFitter.cc: add cout statements (commented out)
+-rarBasePdf.cc: fix minor problem with physCat splitting
+
+24 Mar 2007 Lei Zhang V00-01-60
+-rarMLFitter.cc:
+  1. Fix problem in function getLLRDataset wrt limits of derived variable in
+     a dataset.
+     if removing limits of derived columns is keeping causing problems,
+     we should not remove the limits any longer,
+     because if the limits are causing the problems,
+     it usually should be fixed by changing the deriving formula,
+     or other method. It is reasonable to have limits.
+
+  2. minor bugs fixed for problem with splitCats in cases where
+     physCat is the only splitCats
+
+22 Mar 2007 Lei Zhang V00-01-59
+-rarMLFitter.cc: changes to make it backward compatible
+
+21 Mar 2007 Mario Bondioli V00-01-58
+-rarMLFitter.cc:
+  1. corrected wrong call to expectedEvents with null RooAbsArg pointer
+  2. add check that the source dataset contains events
+
+27 Jan 2007 Lei Zhang V00-01-57
+-rarGaussian.cc, rdl: add scale and shift for Gaussian and BreitWigner
+-doc/src/rarGaussianConfig.texinfo: add doc on scale and shift for Gaussian
+  and BreitWigner
+
+26 Jan 2007 Lei Zhang V00-01-56
+-GNUmakefile.standalone: fixed problem (thanks to Stephen J. Sekula)
+
+22 Jan 2007 Lei Zhang V00-01-55
+-GNUmakefile.standalone: add standalone makefile
+
+04 Dec 2006 Lei Zhang V00-01-54
+-rarNLL.cc: remove starting or ending points if the curve fit is abnormal
+  there.
+
+21 Sep 2006 Lei Zhang V00-01-53
+-rarMLFitter.cc: add config sPlotHist for sPlot action if one does not want
+  RooPlot in sPlot.
+-rarSPlot.cc: problem with RooAbsPdf->getVal()
+
+07 Sep 2006 Lei Zhang V00-01-52
+-rarMLFitter.cc:
+  * add config nScanSegments to divide scanPlot
+  * other minor changes
+
+31 Aug 2006 Lei Zhang V00-01-51
+-rarMLFitter.cc: add config projPlotSaveLLR for projPlot action so that
+  dataset for projection can be saved with LLR into the output root file.
+-doc/patches/RooFitCore-V01-09-02.patch , RooFitCore-V02-00-05.patch : add
+  patches for negative fraction bugs. To patch, type in RooFitCore dir:
+    patch -N < ../RooRarFit/doc/patches/RooFitCore-Vxx-xx-xx.patch
+-doc/src/mlFitAction.texinfo: add docs on systematic error study in mlFit
+  action
+
+08 Aug 2006 Lei Zhang V00-01-50-01
+-submitToy: add option -k so if one wants, one can keep the old dirs.
+
+24 Jul 2006 Lei Zhang V00-01-50
+-rarConfig.cc: improvement in derived column ranges
+-rarBasePdf.cc, rdl: more flexible splitting fraction naming
+-rarMLFitter.cc, rdl, rarMLPdf.cc: improvement in splitting, implementation
+  of double-splitting
+
+13 Jul 2006 Lei Zhang V00-01-49
+-rarConfig.cc, rdl, rarMLFitter.cc: set limits to derived obs only before
+  projection to minimize potential problem with those limits on dataset
+  operation (after projection, the limits are removed)
+-rarDatasets.cc, rdl: tabulateDatasets for newly created dataset so that the
+  dataset info displayed
+-doc/Sample_configs/: for dt projection use the right dataset by cutting on
+  "tagCat!=tagCat::04T0" . So when cut on category type, use its type name,
+  not its type index.
+
+06 Jul 2006 Lei Zhang V00-01-48
+-rarMLFitter.cc: problem with physCat splittig for projection plot fixed
+-rarConfig.cc, rdl: remove limits on addOns for dataset operation
+
+30 Jun 2006 Lei Zhang V00-01-47
+-rarConfig.cc: add RooSuperCategory
+-rarConfig.cc, rdl: fix problem with dirived RooRealVar's so projection plot
+  can work
+-rarMLFitter: scanPlot: remove config scanUnCorrErr and scanCorrErr so
+  people should use combine.C
+
+14 Jun 2006 Lei Zhang V00-01-46
+-rarMLFitter.cc, rdl: fix toy generation problem with physCat splitting.
+ (V00-01-45 removed)
+
+09 Jun 2006 Lei Zhang V00-01-44
+-rarBasePdf.cc: minor fix
+-rarDatasetDef.cc: can now read in int to string var
+-rarMLFitter.cc:
+  * minor fix
+  * toy study: add config toyFitOption so one can set toy fit option
+  * toy study: add more toy results into ntuple: covQual numInvalidNLL edm
+-rarMultPdf.cc, rdl: added by Wolfgang Gradl to deal with different fit
+  ranges for multiple sub mode in simPdf fit.
+  * it might need its own getProtGen() function
+
+08 May 2006 Lei Zhang V00-01-43
+-rarConfig.cc: dsi section for `root' dataset input: can read in both
+  RooDataSet and TTree.
+-rarDecay.cc, rdl: Enable RooBCPGenDecay and disable RooBDecay
+
+25 Apr 2006 Lei Zhang V00-01-42
+-rarOsipDisc.cc, rdl (added by Ilya Osipenkov): OsipDisc PDF
+-RooOsipDisc.cc, rdl: moved from Ilya Osipenkov into RooRarFit
+
+12 Apr 2006 Lei Zhang V00-01-42-b06
+-rarMLFitter.cc, rdl: add GOF chisq to toyStudy if required
+
+07 Apr 2006 Lei Zhang
+-rarMLFitter.cc: add GOF chisq after mlFit
+
+06 Apr 2006 Lei Zhang V00-01-42-b05
+-rarCompBase.cc: fix pdfPlot problem with ndFit for product PDF so that
+  fixed params will not be displayed
+
+04 Apr 2006 Lei Zhang V00-01-42-b04
+-rarMLFitter.cc: Fill histograms/Plot dataset with weights for projection
+  plots
+
+04 Apr 2006 Lei Zhang V00-01-42-b03
+-rarMLFitter.cc:
+  * remove trivial (2*coeffFrac-1) output for asym
+  * getLLRDataset: simplified function to return dataset with weight (if
+    weightVar is set) for projection plot
+-doc/QA: example to use toySample for sPlot, etc., added.
+
+17 Mar 2006 Lei Zhang V00-01-42-b02
+-rarBasePdf.cc, rdl: separate protDataVars and conditionalObs. Do NOT use
+  conditionalObs unless absolutely necessary because it will make the fit
+  very slow
+-rarMLFitter.cc: separate protDataVars and conditionalObs
+-doc: separate protDataVars and conditionalObs, see their config references.
+
+05 Mar 2006 Lei Zhang V00-01-42-b01
+-rarBasePdf.cc: addProtVars() added
+-rarCompBase.cc: call addProtVars() so it can get conditionalObs from its
+  components
+-rarMLFitter.cc: print protDataVars/conditionalObs info
+
+03 Mar 2006 Lei Zhang V00-01-42-b00
+-conditionalObs: add config conditionalObs
+-fitData: if this config is set to a non-existing dataset, the fitter will
+  exit to prevent unexpected results
+-rarConfig:
+  * RooDataHist added: see online doc for more info
+  * RooHistPdf added: see online doc for more info
+-doc: in QA section, add answer to:
+  Can I use toy sample for mlFit, scanPlot, sPlot, etc?
+
+02 Mar 2006 Lei Zhang V00-01-41-02
+-rarNLL.cc:
+  * lIntegralFunc() return 1e200 if the integral is inf to remove error
+  * init(): make sure thisIntegral >=0
+
+02 Mar 2006 Lei Zhang V00-01-41-01
+-rarNLL.cc: Remove unnecessary points on NLL curve if two points are too
+  close (really remove all unnecessary points)
+
+01 Mar 2006 Lei Zhang
+-rarBasePdf.cc, rdl, rarMLFitter.cc, rdl:
+  * move _protDataVars from rarMLFitter to rarBasePdf so protDataVars is
+    available for pdfFit actions, etc.
+  * all fitTo's now include _protDataVars
+  * in pdfPlot, obs from _protDataVars are disabled for plotting.
+    (can be enabled by set plotBins_theObs = <bins> explicitly)
+
+27 Feb 2006 Lei Zhang
+-rarConfig.cc: add RooUnblindOffset for blinding
+
+22 Feb 2006 Lei Zhang V00-01-41
+-rarNLL.cc, rdl:
+  * Remove unnecessary points on NLL curve if two points are too close
+  * The return values of getX() for a given y are now stored in array
+  * getX() getMin() rewritten for more general case
+-rarMLFitter.cc: minor changes to getMeanErrs() to use the new rarNLL::getX()
+-rarBasePdf.cc: minor change
+-doc/Sample_scripts/combine.C: Minor changes
+-doc/Sample_scripts/combine.cc: Add titles for RooCurve's in plot so when
+  Print("v") is called, more detailed info on which is which will be
+  displayed
+
+19 Feb 2006 Lei Zhang V00-01-40-01
+-doc/Sample_scripts/combine.cc: Use additive error only to calculate
+  significance w/ systematics (see App G of BAD521 for more info)
+-doc/Sample_scripts/combine.C: Use the new combine.cc
+
+18 Feb 2006 V00-01-40 (by Guglielmo De Nardo)
+-rarMLFitter.cc, rarStrParser.cc, rarStrParser.rdl: added missing TObjString
+  forward declaration in .rdl and #include in .cc to fix compilation errors
+
+17 Feb 2006 Lei Zhang V00-01-39
+-rarMLFitter.cc: remove trivial warnings
+-rarNLL.cc: fix bug in function getMin() so global min will be found
+-doc/Sample_scripts/combine.cc:
+  * minor bugs fixed
+  * add header files so can be loaded as shared library
+-doc/Sample_scripts/combine.C: minor bug fixed
+
+16 Feb 2006 Lei Zhang V00-01-38-01
+-doc/Sample_scripts/combine.cc:
+  * can deal with fitBias (ie, shift the NLL curve)
+  * add stat only UL and signf
+-doc/Sample_scripts/combine.C: deal with fitBias (or shift NLL curve for any
+  reason)
+
+15 Feb 2006 Lei Zhang V00-01-38
+-rarMLFitter.rdl: combCurves declared as public static for external
+  availability
+-doc/Sample_scripts/combine.cc: add combCurves functions
+
+15 Feb 2006 Lei Zhang (changes made mainly by Wolfgang Gradl)
+-rarMLFitter.cc, .rdl: can add asym errors to NLL scan plot
+-doc/Sample_scripts/combine.cc, combine.C: can add asym errors to NLL scan
+  plot
+
+14 Feb 2006 Lei Zhang V00-01-37
+-rarMLFitter.cc, rarMLPdf.cc: Config fracSrc_<yieldName>_<catName> added so
+  the fractions can be taken from other datasets than the default dataset
+  for the fitter. See online doc on fracSrc for more details
+-rarConfig.cc, rdl, rarMLFitter.cc, rdl: move readConfStrCnA
+  from rarMLFitter to rarConfig
+-rarSPlot.cc: minor change
+
+09 Feb 2006 Lei Zhang V00-01-36
+-rarBasePdf.cc: configs fitRange and plotRange can be specified in pdfFit
+  action sections so they may apply to all PDFs.
+
+08 Feb 2006 Lei Zhang
+-rarMLFitter.cc:
+  * The first toy sample will be saved as "toySample" so in the same action
+    section, other actions following toyStudy action can use the sample, for
+    example, to do sPlot action. See section [SPlotToyAct50e] in file
+    doc/Sample_configs/KsKsKl.config for example
+  * minor changes
+
+05 Feb 2006 Lei Zhang V00-01-35
+-rarConfig.cc, rdl, rarDatasets.cc, rdl: Datasets built from `add' are
+  unblinded when created, so no ub_<dataset_name> config needed for those
+  datasets.
+-rarMLFitter.cc: minor changes
+
+03 Feb 2006 Lei Zhang V00-01-34
+-rarBasePdf.cc, rdl: Normalization corrected if fitRange is smaller.
+  HN post from Wouter provided a better solution
+  http://babar-hn.slac.stanford.edu:5090/HyperNews/get/roothelp/1100/1/1.html
+-rarMLFitter.cc, rdl:
+  * add scanPlotFitOption config (default emhr)
+  * add scanVarShiftToNorm config so the NLL scanPlot can be shifted so that
+    the mins are at normal mlFit values.
+  * minor changes for nll scanPlot (no wiggles @ min nll)
+  * addErrToCurve() function: make sure the NLL yMin is at 0
+-rarNLL.cc, rdl:
+  * improved method for function getMin()
+  * check for 3 point fit with a<=0. If so, print warnings,
+    use numerical method for a<0 integration
+-doc/Sample_scripts/combine.cc: make sure the nll curve min @ y=0
+
+31 Jan 2006 Lei Zhang V00-01-33
+-rarBasePdf.cc, rdl, rarCompBase.cc, rdl: codes to deal with correlation
+  coefficients added for systematical error calculation
+-rarConfig.cc, rdl: function addToConfStr added
+-rarDecay.cc, rarMLPdf.cc: minor changes
+-rarMLFitter.cc: Minor changes for fullParamsWOI and fullParams
+-rarMLFitter.cc: Now systematical error calculation (due to fixed params)
+  includes correlation between params.
+  The formula for error propagation to yield N is
+                              (sig1)
+   sig^2 =(sig1, sig2, ...) M (sig2)
+                              ( .  )
+                              ( .  )
+                                           dN
+  where M is correlation matrix, and sig1= -- delta1, ...,
+                                           dx1
+  delta_i is the error on ith param.
+
+27 Jan 2006 Lei Zhang
+-rarBasePdf.cc: Print out dataset name for pdfFit
+-rarSPlot.cc: Print out Nratio2 for esPlots
+-doc/patches: use command `cvs diff -u' to generate patches for RooFit to
+  resolve ambiguity
+
+25 Jan 2006 Lei Zhang V00-01-32
+-rarVersion.hh, rarFit.cc: Include version info into log file for debugging
+-rarBasePdf.cc, rdl: add static getColor function so macro can call to get
+  reasonable color for plotting
+-rarMLFitter.cc, rdl:
+  * function getMeanErrs added to get mean and error from NLL curve
+  * warning msg added for sPlot pdf overlay if the overlaying pdf does not
+    depends on the obs (can not overlay)
+-doc/Sample_scripts/combine.cc: minor display improvements for NLL curves
+-doc/Sample_scripts/combine.C: save the returned RooPlot to thePlot
+
+23 Jan 2006 Lei Zhang V00-01-31
+-rarDecay.rdl: minor changes
+-rarMLFitter.cc: Use weight to calculate # evts for toys
+-rarMLFitter.cc, rdl: NLL operations improved
+-rarNLL.cc, rdl: Integration method improved (now from -inf to inf instead
+  of 0 to inf)
+-doc/Sample_scripts/combine.cc: simplified functions to combine NLL curves
+  using RooRarFit functions
+-doc/Sample_scripts/combine.C: macro to use combine.cc. Copy it to workdir
+  and edit for one's need
+
+20 Jan 2006 Lei Zhang V00-01-30
+-rarConfig.cc: bug fix for correlation matrix calculation
+
+19 Jan 2006 Lei Zhang V00-01-29
+-rarCompBase.cc: bug fixed for getArgSet function so no dead loop if
+  prePdfFix has pdf name as token
+-rarBasePdf.cc, rdl:
+  * plotRange now independent of fitRange for pdfPlot/pdfFit
+  * Correct normalization for pdfPlot if fitRange is smaller
+     (not really fixed here, should be fixed w version V00-01-34 and up)
+-Q&A chapter: How to patch RooFit?
+  cd RooFitCore
+  patch -N < ../RooRarFit/doc/patches/RooFitCore-Vxx-xx-xx.patch
+
+18 Jan 2006 Lei Zhang V00-01-28
+-rarMLFitter.cc: configs preProjPlotReadSecParams, preScanPlotReadSecParams,
+  preContourPlotReadSecParams, and preSPlotReadSecParams added for action
+  sections so params can be overridden for any actions now.
+-rarBasePdf.cc, rdl: config fitRange added so in pdfAction PDF can be fitted on
+  different ranges than default ones.
+-doc: More details on param initialization, param file I/O
+
+17 Jan 2006 Lei Zhang
+-rarBasePdf.cc: for chi2OnPlot, add option nbin and dof. The default is dof
+  so chisq/DOF is displayed instead of chisq/nBin
+-doc/MyFirstRooRarFit/myFirstRooRarFit-README.txt: add discussion on RooFit
+  version when checking out the RooRarFit package
+-doc/patches: patches for RooFitCore added
+
+14 Jan 2006 Lei Zhang V00-01-27
+-rarMLFitter.cc:
+  * Minor changes for preToyRandParams to add `no' option
+  * sPlot config sPlotSaveSWeight added so sWeight dataset can be saved in
+    root file for purpose like Dalitz MC eff correction.
+-rarBallack.cc: call fabs() instead of abs() for double vars
+
+13 Jan 2006 Lei Zhang (changes made by Karsten Koeneke)
+-rarBallack.cc, rdl, RooBallack.cc, rdl: Ballack PDF added
+-rarConfig.cc: For Ballack PDF.
+
+10 Jan 2006 Lei Zhang
+-rarMLFitter.cc: make sure blind var is set to unblind in toy study.
+
+09 Jan 2006 Lei Zhang V00-01-26
+-rarMLFitter.cc: Add correlation matrix from toyfit. Named as Corr_ii_jj and
+  CorrG_ii
+
+06 Jan 2006 Lei Zhang (changes made by Karsten Koeneke)
+-rarNovosibirsk.cc, rdl: PDF RooNovosibirsk added
+-rarCruijff.cc, rdl, RooCruijff.cc, rdl: PDF RooCruijff added
+
+21 Dec 2005 Lei Zhang
+-rarMLFitter.cc:
+  * output file names contain toyID info for all root files.
+  * fix error bugs for frac asym
+  * total asym plot got by combCurve function instead of RooFit asym method
+-doc/Sample_scripts/LLR.cc: LLR functions to merge/plot LLR histograms
+
+14 Dec 2005 Lei Zhang V00-01-25
+-rarMLFitter.cc: fix bugs in asym plot so that cat type (minus/plus) is
+  assigned wrt cat type index value instead of cat type definition order
+
+11 Dec 2005 Lei Zhang V00-01-24
+-rarBasePdf.cc: plot data points for weighted dataset w/ SumW2 option
+
+09 Dec 2005 Lei Zhang V00-01-23
+-rarConfig.cc, rarUsrPdf.cc, rdl: sample rarPdf for user-defined PDF added
+-rarProd.cc: config ndFit added for n-dimensional fit where product pdf will
+  be fitted once for all instead of fit to each component, as some people
+  claim this method can get better mes de parameterizations if correlation
+  presents.
+-doc: corresponding doc changes
+  doc/src/QA.texinfo: new QAs
+  doc/src/rarUsrPdfConfig.texinfo: example to add user-defined PDF
+  doc/Sample_configs/omrho.config: bug in sPlot for omrho fixed
+
+28 Nov 2005 Lei Zhang V00-01-22
+-rarMLFitter.cc:
+ * add embdEvt_<toySrc_name> into toy result ntuple
+ * config projPlotData, scanPlotData, mlFitData, projPlotData, can be
+   defined in both action and master config sections.
+-rarSPlot: extended sPlot implemented
+-other minor changes
+-doc: corresponding doc changes
+   doc/Sample_configs/README added (very short)
+   doc/tutorial/RooRarFit.ppt doc/tutorial/RooRarFit.pdf added
+
+01 Nov 2005 Lei Zhang V00-01-21
+-rarMLFitter.cc:
+  * enhanced config sPlotPdfOverlay so any pdf can be overlaid to any sPlot.
+    see online doc for more info
+  * include fixed yields into sPlot
+-rarSPlot.cc, rdl: totally rewritten for simplicity and flexibility.
+  Extended sPlot disabled for now.
+-doc: corresponding doc changes
+
+31 Oct 2005 Lei Zhang V00-01-20
+-rarBasePdf.cc: pdfPlot improved for simFitOnly option
+
+29 Oct 2005 Lei Zhang V00-01-19
+-rarBasePdf.cc, rarBasePdf.rdl, rarProd.cc, rarProd.rdl: improve pdf overlay
+  for sPlot so direct pdf can be used to speed up pdf plotting. See online
+  docs for more info
+
+28 Oct 2005 Lei Zhang V00-01-18
+-rarBasePdf.cc:
+  * improved pdfFit plotting for simPdf, bug fixed
+  * option simFitOnly for config pdfFit added
+-doc: corresponding doc changes
+
+26 Oct 2005 Lei Zhang V00-01-17
+-rarConfig.cc, rarDatasets.cc, rarMLFitter.cc: increase the size of
+  RooStringVar from 1024 bytes to deal with long config strings.
+-rarMLPdf.cc: minor changes
+
+25 Oct 2005 Lei Zhang
+-rarMLFitter.cc: sPlots with fixed yields
+
+24 Oct 2005 Lei Zhang V00-01-16
+-rarBasePdf.cc:
+  * physCat bug in getSimPdf() fixed
+  * potential bugs wrt prePdfFix fixed in doPdfFit()
+
+23 Oct 2005 Lei Zhang V00-01-15
+-rarBasePdf.cc:
+  * simFit bug fixed for prePdfFix and prePdfFloat
+  * minor changes
+
+22 Oct 2005 Lei Zhang V00-01-14
+-rarBasePdf.cc: bug fixed for getArgSet so split param can be referred to
+  even it is not created by RooRarFit
+-rarMLFitter.cc: config sPlotNoPdfOverlay so user can choose not to overlay
+  pdf for sPlots.
+
+20 Oct 2005 Lei Zhang V00-01-13
+-rarMLPdf.cc: Make sure unitary constraint specified for yield
+  splitting
+-rarNLL.cc: minor changes
+
+19 Oct 2005 Lei Zhang V00-01-12
+-rarMLFitter.cc: config sPlotNormIgnoredObs added for sPlot, see online doc
+  for more info
+-rarSPlot.cc: minor changes wrt debugging output
+-doc: corresponding doc changes
+
+15 Oct 2005 Lei Zhang V00-01-11
+-rarBasePdf: bug fixed so can build simPdf to get pdf params
+-rarMLFitter: function getPhysCat added to get physCat
+-rarMLPdf.cc: do not include physCat into automatic yield splitting
+  mechanism, ie, by creating Frac_XX_YY_ZZ
+
+11 Oct 2005 Lei Zhang
+-rarBasePdf.cc:
+  * bug fixed for prePdfFix and prePdfFloat
+  * bug fixed for getArgSet so any pdf name can be referred to
+
+07 Oct 2005 Lei Zhang
+-rarMLFitter:
+  * Static function combineNLLCurves to combine NLL curves
+  * All NLL curves go into one RooPlot with names:
+       NLL_curve:        regular NLL curve from scanPlot action
+       NLL_curve_unCorr: NLL curve w/ uncorrelated errors
+       NLL_curve_Corr:   NLL curve w/ uncorrelated and correlated errors
+-rarNLL: expand the class to add more operations like getNLL, getX, getMin,
+  etc.
+-doc/Sample_scripts/combine.cc, from Stephen Bailey, added. will be replaced
+  by a much simpler one based on RooRarFit, combine.C
+
+06 Oct 2005 Lei Zhang V00-01-10
+-rarMLFitter: Static function getSignf, getUL added to get significance
+  and upper limits from NLL curve. Change addErrToCurve to static
+  so it can be called without instantiating rarMLFitter object
+-rarNLL: New class to deal with NLL curve added.
+  By using analytical integral of parabolic fit wrt 3 points in the NLL
+  curve, the accuracy is much more improved than using just linear fit.
+
+05 Oct 2005 Lei Zhang V00-01-09
+-rarMLFitter: In scanPlot action, uncorrelated and correlated error can be
+  `added' into NLL scan plot. See online doc for more info
+
+26 Sep 2005 Lei Zhang
+-rarDatasets.cc, rdl: Add config setWeightVar so weight var can be set for
+  datasets in dsi section. See online docs for more info.
+  Still need feedback from users to get weighted datasets work properly.
+  For now, the only thing done is to set weight var in datasets.
+
+25 Sep 2005 Lei Zhang V00-01-08
+-rarConfig, rarMLFitter.cc: can choose paramFileID wrt config file name, see
+  online doc for more details
+-rarMLFitter.cc: Bug fixed wrt ascii toy sample output/fit
+
+25 Aug 2005 Lei Zhang V00-01-07
+-config prePdfFloat added, see online docs
+-other minor changes
+
+22 Aug 2005 Lei Zhang
+-rarMLFitter.c: Can draw projection for each cat type if cats specified by
+  projPlotCat for projPlot action
+-doc: add JPsiKl config files
+
+21 Aug 2005 Lei Zhang V00-01-06
+-rarMLFitter: bugs fixed for projection, LLR plots w/ derived obs.
+
+19 Aug 2005 Lei Zhang
+-rarMLFitter.cc: bug fixed for embd randomizer w/ simPdf
+-rarSimPdf.cc: set proper name for simPdf
+
+17 Aug 2005 Lei Zhang
+-rarDatasetDef: function setVal added so that dsd objects can be used in
+  pre-selection procedures like analyzeNtuple.
+-doc/Sample_scripts/pulls.C: simplify floating param searching so any
+  floating params are included. No more change is needed for pulls.C
+
+16 Aug 2005 Lei Zhang V00-01-05
+-rarBasePdf: can fit simPdf for any pdf to get split parameterization if the
+  final model is simPdf and params of that pdf are split.
+
+15 Aug 2005 Lei Zhang
+-rarMLFitter: default no toy data ascii file output, to output toy dataset,
+  toyDataFilePrefix set to yes in action section
+
+14 Aug 2005 Lei Zhang V00-01-04
+-rarDatasets.cc: convert != to NEQ for dataset name
+-rarMLFitter.cc: bug fixed for embed randomizer
+-rarSimPdf: bug fixed for rarSimPdf
+
+13 Aug 2005 Lei Zhang V00-01-03
+-rarBasePdf, rarCompBase: function getArgSet can include split params
+-rarMLPdf.cc: bug wrt simultaneousFit new feature fixed
+-rarMLFitter.cc:
+  * problem with embedding MC dataset name fixed
+  * enforced _protDataset to be valid
+  * configs postPdfFloat, preMLFix, preMLFloat, etc. can include split
+     params without specifying individual split params
+
+11 Aug 2005 Lei Zhang V00-01-02
+-rarConfig: add root file as input file for dataset
+-rarMLFitter: Attempt to build RooSimultaneous pdf directly for the final
+  model, (not quite there yet)
+
+08 Aug 2005 Lei Zhang
+-rarDatasets: remove special characters in dataset names
+
+05 Aug 2005 Lei Zhang V00-01-01
+-rarMLFitter.cc: rename the suffix for embedded yield pull from _new to _embd
+-doc/Sample_scripts/pulls.C: add _embd as the suffix for embedded yields
+-doc: corresponding doc changes
+-rarDatasets, rarMLFitter, etc.:
+  Add blind constraint on all actions except pdfFit and toyStudy.
+  It is now required in action section to specify dataset for each action
+  explicitly. The default dataset specified by config fitData is used to
+  build Pdf and do toy study only. Additional to this, it is required to
+  acknowledge the fitter explicitly that a dataset is for unblinding in dsi
+  section for any actions like mlFit, projPlot.
+  Unblinding dataset does not necessarily unblind your results,
+  as long as you use RooUnblindPrecision's and the state is set to blind,
+  those variables they try to blind still remain blind.
+  The unblind token is given by the fitter when you try to do one such
+  action, follow the instruction given by the fitter. This token will change
+  if the contents of the dataset change, so you need to reset the token once
+  your dataset changes. You can concatenate those tokens together, separated
+  by white space, so you do not need to change the token again if the
+  dataset changes back.
+
+04 Aug 2005 Lei Zhang
+-rarMLFitter.cc: fix bugs for toy param randomizer
+
+02 Aug 2005 Lei Zhang V00-01-00
+-rarBasePdf.rdl: fix typo
+-projOptimDataLimit: added for projPlot action so extreme large MC sample
+  for optimization is capped.
+-doc: corresponding doc changes
+
+01 Aug 2005 Lei Zhang V00-00-17
+-rarBasePdf: add pointer to the final mlFitter
+-rarMLFitter.cc, rdl: now able to calculate signf. w/ mlFit action.
+-rarSimPdf.cc, rdl: now use RooSimPdfBuilder to builder RooSimultaneous
+  instead of building by rarFit.
+  ATTN! rarSimPdf can not be used to build mlFitter! It can be used to build
+  param randomizer.
+
+30 Jul 2005 Lei Zhang V00-00-16
+-rarMLFitter: protDataVars and protDataEVars globally accessible
+-toyEmbdUnCorrelate: added to toy study action so that one can un-correlate
+  observables for embedded toys.
+
+29 Jul 2005 Lei Zhang
+-rarMLFitter.cc: disable 0 event adjustment for toy study because people
+  sometimes do want to generate 0 event for a component. If the total
+  yields (expected number of events for extended model) is taken from
+  prototype dataset, the largest yield (usually continuum background)
+  will be adjusted. The preferable way to specify yields (as in online
+  docs) is:
+    [toyStudyAct]
+    // toy options
+    toyStudy = yes
+    // init values for yields
+    nSig = 160 L(0 - 300)
+    nChmls = 1703 L(0 - 30000)
+    nBkg = 5000 L(0 - 30000) // largest number will be adjusted
+    // if it is pure toy, you do not need to specify how to generate
+    // for embedded toy, for example you can do
+    toySrc_nSig = sigMC "@0 nSig" // from sigMC
+    toySrc_nChmls = bbMC 10 pdf "@0-10 nChmls" // 10 from bbMC, the rest from pdf
+
+28 Jul 2005 Lei Zhang
+-mlFitData: added for mlFit action so mlFit can be done to dataset other
+  than the default one
+-rarMLFitter.cc: toy ID info ID_COL0 (toyID), ID_COL1 (loopIdx), ID_COL2
+  (ID#withinLoop) added to toy output dataset so that each toy data
+  entry matches each toy sample
+
+27 Jul 2005 Lei Zhang
+-rarMLFitter.cc, submitToy: rename toyParDataset from fitResults to
+  toyResults
+
+25 Jul 2005 Lei Zhang V00-00-15
+-rarMLFitter: add functions to do scanPlot. See online doc for scanPlot
+  Action.
+-other minor changes to remove old version related code
+
+24 Jul 2005 Lei Zhang V00-00-14
+-rarMLFitter: Systematic study in mlFit action added. See online doc in
+  mlFit Action.
+-rarVersion.hh: Support for analysis-23 will be dropped because RooRarFit
+  now depends on too many RooFit features not available in older releases.
+  From now on, the RooFit versions RooRarFit supports are v1.92 (tag
+  V01-09-02) and higher, the Babar releases are analysis-24
+  (16.0.3-physics-1) and higher.
+
+23 Jul 2005 Lei Zhang
+-rarBasePdf.cc, rdl: Enhanced color for plots
+-preMLReadSecParams: yes by default
+
+23 Jul 2005 Lei Zhang V00-00-13
+-rarMLFitter.cc: fix bug in LLR/Projection plots
+  The bug for LLR/Projection plots are pretty subtle. The origin of the bug
+  is from how to construct likelihood ratio for mode with multi signal
+  and/or multi background components. The description of the problem is
+  excerpted from email exchange with Bill.
+
+  ... Q2BFit (and RooRarFit for now) did not handle it right...
+  The conclusion was from yesterday's (20th) discussion with Owen.
+  The ratio, S/(S+B), has two separate variables, and for each of them,
+  you could have multi components. The key question is how to get
+  the right likelihood ratio for those two variables. Suppose you have
+  2 signals S1 and S2, two backgrounds, B1 and B2. The way Q2BFit (and
+  RooRarFit for now) does the calculation is to set the ratio to
+  (S1+S2)/(S1+S2+B1+B2). The problem for this calculation is it does not
+  take the relative normalization of individual background (or signal)
+  components into account within S or B. We can transform the total Pdf
+  model=s1*S1+s2*S2+b1*B1+b2*B2 to
+  model=s*((1-s_frac)S1+s_frac*S2)+b*((1-b_frac)B1+b_frac*B2) and the
+  likelihood ratio should be S/(S+B)=((1-s_frac)S1+s_frac*S2)/
+  ((1-sfrac)S1+s_frac*S2+(1-b_frac)B1+b_frac*B2). We find this problem
+  because in KsKsKl analysis we include a component which
+  is very signal like and we fix the yield of that component to
+  a small known number. If you do the wrong calculation,
+  S/(S+B)=S/(S+S'+B) where S' is close to S, so even if B=0,
+  the ratio can hardly pass .5 much...
+
+22 Jul 2005 Lei Zhang V00-00-12
+-fixes for SunOS58
+
+20 Jul 2005 Lei Zhang
+-rarMLFitter.cc: fix bugs in LLR plotting
+
+20 Jul 2005 Wolfgang Gradl
+-submitToy:  change hard-coded location of perl interpreter to @PERL@ 
+  so that gmake binscripts can substitute the correct location of perl
+  from SoftRelTools/SiteConfig/$BFSITE
+
+19 Jul 2005 Lei Zhang V00-00-11
+-rarMLFitter.cc: Likelihood Ratio (LLR) plot available in projection plot
+  action. See online docs
+-rarMLFitter.cc: print out msg if toy fit fails
+
+18 Jul 2005 Lei Zhang V00-00-10-01
+-rarMLFitter.cc, rarMLPdf.cc: fixed problem w/ RooFit V02-00-05
+-rarMLFitter.cc, rarMLPdf.cc: fixed to work w/ RooFit V01-00-04
+
+17 Jul 2005 Lei Zhang
+-rarMLFitter.cc: minor fix/improvement
+-rarCatPdf.cc, rdl: obsolete, deleted
+
+14 Jul 2005 Lei Zhang V00-00-10
+-rarMLFitter: enhanced toy study facilities. Enhancements include:
+  * Enhanced prototype observable generating. If prototype dataset is needed,
+    you can choose to generate prototype observables from any of the
+    sources:
+    1) RooFit default prototype dataset
+    2) Prototype datasets for each component
+    3) Prototype observable generator built by RooRarFit
+  * Enhanced parameter scanning. It is quite common to do a set of toy
+    experiments over several parameter points, for example, for different
+    signal yields, fLs, C and S, etc. The new toy engine can do that for you
+    automatically, and you will get toys done over a whole range of
+    interested points just in one toy job.
+  * Enhanced embedded study. With the new toy engine, it is possible to
+    randomize observables so that you end up embedding from different MC
+    samples effectively. For example, you can embed events with C and S
+    specified as different from those in the original MC sample, the
+    embedding engine will figure out what tagFlav should be for those C and
+    S.
+-rarBasePdf, rarConfig, rarMLPdf.cc: minor changes
+-doc: corresponding doc changes
+
+06 Jul 2005 Lei Zhang
+-rarConfig.cc: bugs to create fundamental RooRealVar fixed to remove out of
+               range problem
+-rarMLFitter: simplified generator creation
+-preToyReadParams: set default param file to pdfFit output
+
+28 Jun 2005 Lei Zhang V00-00-09
+-Improved usability, see online docs
+
+27 Jun 2005 Lei Zhang
+-Fully functional full toy generator enabled
+-Please use V00-00-08 if problem occurs
+
+27 Jun 2005 Lei Zhang V00-00-08-04
+-Fully functional full toy generator works, still disabled for final touch
+
+26 Jun 2005 Lei Zhang V00-00-08-03
+-Just one step away from full toy generation.
+ The current generator (if enabled) should work at least as good as
+ prototype method.
+
+26 Jun 2005 Lei Zhang V00-00-08-02
+-not quite yet, check in changes for archive purposes
+
+25 Jun 2005 Lei Zhang V00-00-08-01
+-Landau Pdf added
+-rarCatPdf.cc, rdl: added to describe cat fraction.
+ It turned out to be unnecessary to have a pdf describing cat distribution.
+ This class will be removed later.
+-major changes to make full toy generation work
+-not yet, check in changes for archive purposes
+
+20 Jun 2005 Lei Zhang V00-00-08
+-rarConfig::createAbsVars: changed so that AddOns can be set to notSet to
+  disable itself explicitly
+-rarMLFitter.cc: Print the obs generated in toy dataset after generation
+
+18 Jun 2005 Lei Zhang
+-submitToy: simplified, option -D -C added, runnable at SLAC
+
+17 Jun 2005 Lei Zhang
+-rarBasePdf.cc, rarCompBase.cc: allow plotting without fitting
+-rarBasePdf.cc: bugs for paramOn fixed, only param of RooRealVar printed
+
+16 Jun 2005 Lei Zhang
+-rarBasePdf.cc, rarConfig.cc, rarDatasetDef.cc: Fundamental var for
+  RooFormulaVar can have optional range limits specified. See online docs.
+-rarDatasets.cc: fractional values of cat types for tabulation added
+-rarFit.cc: change the way random seed is set; add env RANDOMSEEDBASE so one
+  can change random seed as he wants.
+-rarMLFitter.cc:
+  * option "r" for randomization always used
+  * pulls for embedded toy fixed
+  * always fix params, drop config postPdfFixParams
+  * add configs preMLFix and preMLFloat for more flexibility
+-doc: corresponding doc changes
+
+14 Jun 2005 Lei Zhang
+-rarMLFitter.cc:
+  -part of memory leak due to optimization dataset fixed
+  -add projOptimFormula config so one can choose different optimization
+    formula.
+  -Rearrange plotting /root file creation
+
+13 Jun 2005 Lei Zhang V00-00-07
+-rarMLFitter: Asym plot added
+-doc: corresponding doc changes
+
+12 Jun 2005 Lei Zhang V00-00-06
+-rarMLFitter: new jumbo SPlot section, see online docs
+-other minor changes
+-doc: corresponding doc changes
+
+11 Jun 2005 Lei Zhang
+-rarMLFitter: new jumbo projPlot section, see online docs
+-rarMLFitter, rarFit.cc: add command line option -n for # toy exp
+-other minor changes
+
+10 Jun 2005 Lei Zhang
+-rarConfig: major changes for new RRV schema, see online docs
+-rarDatasetDef, rarDatasets: minor changes wrt new RRV schema
+-other minor changes
+-doc: corresponding doc changes
+
+10 Jun 2005 Lei Zhang V00-00-06-pre
+-Tag before new RRV
+
+07 Jun 2005 Lei Zhang
+-rarConfig, rarFit.cc, rarMLFitter: changes wrt naming for
+  param/toySample, root file, etc.
+
+06 Jun 2005 Lei Zhang
+-rarConfig.cc: hard-coded to use prefix method for fullName
+-rarFit.cc: add command line option -d for toy dir
+-rarMLFitter.cc: make sure all the floating params are floated for toys
+-rarTwoGauss: add scale and shift
+
+03 Jun 2005 Lei Zhang
+-rarMLFitter.cc: bugs fixed so for embedded toy the initial yields will be
+  correct
+
+02 Jun 2005 Lei Zhang V00-00-05
+-rarAdd, rarBasePdf, rarCompBase, rarMLFitter, rarMLPdf, rarProd, rarSimPdf:
+  changes for sPlot
+-rarSPlot.cc, .rdl: added for sPlot
+-other minor changes
+-doc: corresponding doc changes
+
+31 May 2005 Lei Zhang
+-rarFit.cc: due to inconsistency between RooRealVar::format() and parser,
+  use printScientific method for RooRealVar printing out.
+-rarMLFitter: improved contour plotting by having more restrict limits.
+  contourVars can include optional limits
+-rarStrParser: function `Index' added
+-rarVersion.hh: rar_setRange added
+
+30 May 2005 Lei Zhang V00-00-04
+-rarMinuit.cc, rdl: Bugs fixed so that closed contour plot will be drawn (I
+  suspected it was bugs in ROOT, because I tested contour plot demo macro
+  coming with ROOT, I still got open contour plot, but in some older
+  ROOT, I was able to get closed contours with the same macro) 
+
+30 May 2005 Lei Zhang
+-rarMinuit.cc, rdl: added for contourPlot action
+-rarMLFitter: contourPlot action added
+-doc: corresponding doc changes
+
+29 May 2005 Lei Zhang
+-rarConfig, rarMLFitter: computeCorrelations added
+-rarStrParser: Have function added so can check if a token exists
+-rarBasePdf, rarConfig, rarConfig, rarDatasets: minor changes
+-doc: corresponding doc changes
+
+28 May 2005 Lei Zhang V00-00-03
+-configs plotRange added so plot can have different ranges than the defaults
+-rarBasePdf rarConfig, rarDatasetDef, rarDatasets: bugs with
+  createFundamental fixed. I did not quite understand why we created
+  `fundamental' vars for derived obs in datasets. Now I think the reason is
+  to have those fundamental vars as observables for pdf so as to drop the
+  dependency of those derived obs to the original obs. So for each derived
+  obs in rarDatasetDef and rarDatasets, there will be a `fundamental' one
+  based on it. And the dependents of pdf should be those fundamental ones.
+-rarBasePdf: bugs for _thisSimPdf RooSimultaneous fixed. This pdf is useful
+  for projection plot, and maybe later for sPlots.
+-rarMLFitter: bugs fixed for projection plot, ie, LRatio is now based on
+  RooSimultaneous component, add several new configs to deal with cuts,
+  projection dataset, etc; protDataEVars is also used here; add plotRange
+  config
+-doc/Sample_configs: add omks
+-doc: corresponding doc changes
+
+26 May 2005 Lei Zhang
+-rarConfig:  bugs in `add' method for creating dataset fixed (for derived
+  data columns)
+-rarBasePdf: fixed bug in control bit set/reset by add setControlBit
+  function.
+
+25 May 2005 Lei Zhang V00-00-02
+-rarMLFitter.cc: bugs with zero protVars fixed (by creating two protData
+  pointers, protData (for reduced one if non-zero protVars) and protData0
+  (the original prototype dataset)).
+-doc/Sample_configs: omh and omrho configs added (for K-pi fitting and VV
+  fitting)
+
+23 May 2005 Lei Zhang
+-doc/Sample_configs/.htaccess added
+-doc/src/QA.texinfo added
+
+22 May 2005 Lei Zhang
+-rarBasePdf:
+  firstFitOnly config added for one pdfFit action for each pdf
+  PdfPlotDone control bit added for one pdfPlot action for each pdf
+-rarConfig:
+  _rarFCats changed to rarCatsNF, getFCats() changed to getCatsNF()
+  for adding RooFormulaVar fundamental
+-rarMLFitter.cc: preToyReadSecParams added
+-doc: corresponding doc changes  
+
+17 May 2005 Lei Zhang
+-Common config protDataVars and protDataEVars added for pdf config section
+-doc/src: corresponding doc changes
+
+15 May 2005 Lei Zhang V00-00-01
+-rarBasePdf: generate function improved to deal with prototype dataset.
+-rarConfig: add createFundamental vars for derived categories so those vars
+  in dataset can be properly extracted.
+-rarMLFitter: toyStudy works with full mlFitter built by RooSimPdfBuilder.
+-other typo fixes
+-doc: corresponding doc changes
+
+12 May 2005 Lei Zhang
+-rarBasePdf.cc: compsDataOnPlot added
+-doc/src: corresponding doc changes
+
+11 May 2005 Lei Zhang
+-rarBasePdf.cc: minor bug wrt noCompsOnPlot control fixed
+-rarMLFitter.cc: change the action schema so that each part of run() function
+    is more independent
+
+10 May 2005 Lei Zhang V00-00-00
+-The very first version of RooRarFit. It is the same as V01-00-08 of
+  yaQ2BFit with only naming changes.
+
+06 May 2005 Lei Zhang
+-The package has been initialized
+
+****************************************************
+The following records are from Q2BFit/History file
+
+08 May 2005 Lei Zhang V01-00-08
+-yaQ2BAddPdf, yaQ2BBasePdf, yaQ2BCompBase, etc,
+  * move _PDFs from yaQ2BCompBase to yaQ2BBasePdf and renamed to _subPdfs
+  * improve doPdfPlot so that TwoGauss and TriGauss can have component pdf
+    overlaid
+-other clean up
+-doc/yaQ2BFit: corresponding doc changes
+
+07 May 2005 Lei Zhang
+-yaQ2BConfig: getPdfSec removed (as promised 04 May 2005)
+-yaQ2BTriGaussPdf:
+   * TriGaussScale pdfType removed, just specify msSF to
+     enable this feature
+   * RooTripleGaussian might be problematic, do not use any longer
+-doc/yaQ2BFit: corresponding doc changes
+
+06 May 2005 Jim Smith
+-yaQ2BArgusPdf: Add capability to float the power (default 0.5) and
+  improve the default titles to be shorter.
+
+04 May 2005 Lei Zhang V01-00-07
+-yaQ2BBasePdf: plot with projWData option added
+-yaQ2BConfig: getPdfSec added (will be removed in the next update,
+  it is there just for archive purpose)
+-yaQ2BMLPdf: exclude physCat from auto yield splitting
+-doc/yaQ2BFit: corresponding doc changes
+
+02 May 2005 Lei Zhang
+-yaQ2BTriGaussPdf: Triple Gaussian with Scaling added
+-other minor fix
+-doc/yaQ2BFit: corresponding doc changes
+
+01 May 2005 Lei Zhang
+-yaQ2BTriGaussPdf: Now supports triple gaussian, triple gaussian resModel,
+   and Gexp decay shape.
+-yaQ2BDatasets, yaQ2BFit: Individual action sections can have Datasets
+   config to override the one in dsi section.
+-doc/yaQ2BFit: corresponding doc changes
+
+30 Apr 2005 Lei Zhang
+-yaQ2BMLFitter, yaQ2BMLPdf: asym bug fixed
+-other minor fix
+
+29 Apr 2005 Lei Zhang V01-00-06
+-yaQ2BAddPdf, yaQ2BBasePdf: plot bugs affecting parameter floating, etc.
+   fixed
+-enhanced yaQ2BBasePdf::getParams
+-better way to handle fix params, float params
+-yaQ2BConfig: minor bugs fixed
+-doc/yaQ2BFit: corresponding doc changes
+
+28 Apr 2005 Lei Zhang V01-00-05
+-Major yaQ2BFitter development milestone. A fully functioning fitter is now
+  available.
+-yaQ2BConfig::createAbsVars added for multi-variable creation,
+  now all argSet like Fields, AddOns, Coeffs, etc. are created in unified
+  way
+-`Ignored' config added for variables not output to params
+-yaQ2BConfig: several enhancement
+-Enhanced splitting, now support auto, semi, and manual methods
+-Editing output param file by hand is discouraged, all can be done through
+  config file
+-doc/yaQ2BFit: corresponding doc changes
+
+27 Apr 2005 Lei Zhang
+-yaQ2BBDecay: blinding control restored
+-yaQ2BBasePdf:
+  function setControlBits, getControlBit, data _controlStr, added.
+  Replace all the booleans:
+  _pdfFit, _pdfPlot, _paramsOnPlot, _chi2OnPlot, _fixParams, etc.
+-other corresponding changes for the new control schema
+
+26 Apr 2005 Lei Zhang
+-yaQ2BConfig: bug fixed for RooUnblindPrecision creation
+-yaQ2BBDecay:
+  * now for BDecay free parameters changed to:
+    dm, dgamma, tag, w, dw, mu, C, S
+  * Add blinding controls
+-doc/yaQ2BFit: corresponding doc changes
+
+25 Apr 2005 Lei Zhang
+-yaQ2BBDecay: f1 created as RooConstVar so it will not be in params
+-yaQ2BBifurGaussPdf: Cmean, CA2, CA2x3, CAx3 created as RooConstVar
+-yaQ2BConfig: capable to create RooConstVar
+-yaQ2BMLFitter: params can be sorted to output
+-doc/yaQ2BFit: corresponding doc changes
+-other minor changes, typo fixed
+
+25 Apr 2005 Lei Zhang
+-yaQ2BConfig:
+  * master section (mlFitter) name global accessible
+  * variable full name can be created in three ways:
+      prefix (default now), suffix (the only way before), and self (for
+      dataset definition and input)
+  * More ways to create RooRealVar
+-yaQ2BDatasetDef, yaQ2BDatasets: no need to give full name for variables
+   created here because the variable name by itself should be unique.
+-yaQ2BFit: set the master (mlFitter) section name
+-yaQ2BMLFitter: config fullNameSchema added to control the full name
+   generation.
+-doc/yaQ2BFit: corresponding doc changes
+
+24 Apr 2005 Lei Zhang
+-yaQ2BMLFitter:
+  * rename autoYieldSplit to yieldSplitMethod to allow more methods
+  * fraction unitary constraints by RooFit method or by yaQ2BFit
+-doc/yaQ2BFit: corresponding doc changes
+-other minor changes
+-Because of unknown reason, unitary constraint by RooFit does not work
+  properly, so constraint enforced by yaQ2BFit or by user for now.
+
+23 Apr 2005 Lei Zhang
+-yaQ2BBDecay: also as wrapper of RooDecay
+-yaQ2BConfig: RooUnblindPrecision added
+              8th way to create RooRealVar added
+-yaQ2BDatasetDef: re-implemented getFormulaArgs so it can create
+    RooFormulaVar
+-yaQ2BGaussModel: more flexible ways to create GaussModel
+-doc/yaQ2BFit: corresponding doc changes
+
+22 Apr 2005 Lei Zhang
+-yaQ2BMLFitter:
+  * add config autoYieldSplit to control if auto splitting needed
+  * aysm error got right
+-doc/yaQ2BFit/yaQ2BMLFitterConfig.texinfo: more detailed doc for splitting
+-misc changes
+
+21 Apr 2005 Lei Zhang
+-yaQ2BAddPdf, yaQ2BBasePdf, yaQ2BConfig, yaQ2BMLFitter,
+ yaQ2BMLPdf: changes for splitting to work
+-yaQ2BDatasets: option for tabulation change to
+ tabulateDatasets=<no|yes>
+ and if set to yes, tables will be made for all categories.
+-doc/yaQ2BFit: misc changes
+
+18 Apr 2005 Lei Zhang
+-yaQ2BBifurGaussPdf: BGG approach implemented
+-yaQ2BVersion.hh: Minimal comments added
+-doc/yaQ2BFit/yaQ2BBifurGaussPdfConfig.texinfo: doc for the new BifurGauss
+-other minor changes
+
+17 Apr 2005 Lei Zhang
+-yaQ2BVersion.hh: version control cpp macros added.
+-other minor fixes for version control
+
+17 Apr 2005 Lei Zhang lz-2005Apr17
+-I made this tag because I am going to make the head of yaQ2BFit runnable in
+  analysis-23. The motivation for this is from that it looks to me the new
+  RooFit for ROOT4 is not quite stable and some bugs are still there, which
+  might be a little bit subtle. I find this because when I was trying to get
+  splitting work with omegaKs mode, I could not get the right yields with
+  splitting, while Jim could with almost the same configs. I finally figured
+  out it was due to the RooFit versions I was using were not quite recent.
+
+  The old RooFit has been used and tested for a long time and I'd better
+  trust the results from that version if some problem rises. Since some of
+  the functions were missing when we made a tag working for old RooFit and
+  the fitter is still changing fast. It is reasonable to make the head
+  runnable with the old RooFit.
+
+15 Apr 2005 Lei Zhang
+-RooSimPdfBuilder object is now created persisting
+
+14 Apr 2005 Lei Zhang
+-yaQ2BDatasets, yaQ2BConfig, yaQ2BDatasetDef:
+ * New RooFit categories implemented: RooMappedCategory,
+   RooThresholdCategory.
+ * Datasets can have derived columns after primary fields are read in from
+   data file.
+-other minor fixes
+-doc/yaQ2BFit/ dsd.texinfo, dsi.texinfo:
+   Reorganize the dataset config docs.
+
+11 Apr 2005 Lei Zhang
+-yaQ2BAddPdf.cc, yaQ2BBasePdf.cc, yaQ2BDatasets.cc, yaQ2BMLFitter.cc:
+  fix potential problems with RooArgSet::readFromFile
+-yaQ2BDatasets.cc: Category tabulation more robust
+-yaQ2BConfig.cc: Check name not to be notSet
+
+06 Apr 2005  Lei Zhang lz-2005Apr06
+ - tag for the new schema of yaQ2BFit
+
+05 Apr 2005 Lei Zhang
+ - Made suggested config schema changes
+   As I am trying to get TD analysis work, I realize it might be helpful to
+   change the schema a little bit.
+   For example, the old way:
+	configStr=Gaussian de "Optional Title"
+	mean=...
+	sigma=...
+   current way:
+	configStr=Gaussian "Optional Title"
+	x=de
+	mean=...
+	sigma=...
+   x is the observable, and it is set to de for this case.
+   If the pdf has more observables, the second one is usually y,
+   the third one z, and so on, unless there is strong reason not to do so.
+   For example, dtErr in the GaussianModel will be called
+   msSF/meanSF/sigmaSF instead of y.
+   
+   The reason for this change is that in RooFit,
+   observables and parameters are not absolute.
+   In one scenario one variable is observable, in another,
+   it might be parameters. By taking the default observables out of
+   the configStr, it makes the configs more RooFit compatible and
+   gives the fitter more freedom.
+
+04 Apr 2005 Lei Zhang lz-2005Apr04
+ - yaQ2BBDecay, yaQ2BGaussModel, for TD analysis
+ - yaQ2BAddPdf, now able to handle AddModel
+ - xxFitMin, xxFitMax, etc, fixed
+ - minimal docs added
+
+02 Apr 2005 Lei Zhang
+-Migrated to analysis-24 and new ROOT/RooFit
+-other minor doc changes
+
+02 Apr 2005 Lei Zhang
+-Texinfo documentation for yaQ2BFit finished.
+-Other minor fixes
+
+29 Mar 2005 Lei Zhang
+-Self documentation added to the source codes. Coding docs can be generated
+  using doxygen.
+
+22 Mar 2005 Lei Zhang
+-yaQ2BBasePdf: now can build extra Pdfs which are not part of the final
+  model, but the components of which may be used in the model.
+-Add new control command, so that one can choose to fix some parameters
+  before the fit, or float some parameters after fixing all others.
+-other pdf classes: minor changes
+-tests done for omegaKs modes. Got consistent results for both old and new
+  fitters with pdf and ml fits.
+
+14 Mar 2005 Lei Zhang
+-yaQ2BMLFitter.cc, rdl: Add projection plot function. This plot function
+  should work for any type of final ml PDF, including simultaneous PDF.
+  For simplicity, no implementation for optimization of LRatio cut for now.
+-other pdf classes: documentation comments added, and other minor bug fix.
+
+25 Feb 2005 Lei Zhang
+-yaQ2BConfig::createDataSet: For add method, randomized event selection
+
+24 Feb 2005 Lei Zhang
+(excerpts from email about the docs of yaQ2BFit)
+I added the initial version of yaQ2BFit documentation.
+To build your own docs, please type in the release dir
+                                                                                                                                               
+gmake Q2BFit.guide
+                                                                                                                                               
+You will then build all the documentation. All the docs built can be found
+in Q2BFit/doc of your working release, including:
+  * yaQ2BFit.html  -the main page
+  * yaQ2BFit.pdf   -pdf version
+  * html/          -doxygen generated source code ref pages
+  * refman.pdf     -pdf version
+However, you may need updated tools to get all the docs built, namely,
+texinfo tools and doxygen tools. (unfortunately, machine @ slac may have
+some versions way too old)
+                                                                                                                                               
+You can always find updated docs from my webpage, the url is
+                                                                                                                                               
+http://www.slac.stanford.edu/~zhanglei/yaQ2BFit/yaQ2BFit.html
+                                                                                                                                               
+The structure of the docs:
+* The main doc page is generated from texinfo source files and it has two
+  versions: html (the url) and pdf (link in the webpage).
+* source code documentation is generated from source codes by doxygen. I
+  could use Root's own documentation engine, but I think doxygen can
+  produce more elegant and useful docs. Anyway, the source codes are
+  RootHtml compatible.
+  This part of the docs has html and pdf versions, too, and is accessible
+  through the main webpage.
+
+24 Feb 2005 Lei Zhang
+-yaQ2BAddPdf: fix problem with plotting components
+-yaQ2BBase: better way to set name, title, pdf type,
+            better way to handle obs dependency
+            better way to handle plotBins
+            _fObsList added for dependents (including from sub pdfs)
+-other pdf classes: minor changes for documentation purposes
+-doc/GNUmakefile: makefile for doc added
+-doc/yaQ2BFit/: yaQ2BFit.texinfo, why.texinfo, implement.texinfo,
+  and config.texinfo: texinfo files for documentation added
+-doc/yaQ2BFit/doxygen.cfg: doxygen config file added for source
+  documentation
+
+19 Feb 2005 Lei Zhang
+-yaQ2BBasePdf: getFormulaVal, function to calculate value of a string based
+  on RooFormulaVar, added
+-yaQ2BFit.cc: option -t added so that a big toy job can be split
+-yaQ2BMLFitter: now can deal correctly with nSig, nBkg, etc as
+  RooFormulaVar.
+  set different sees for different job ID
+-other minor changes to fix bug or to reduce the code
+
+17 Feb 2005 Lei Zhang
+Pdf parameter configs can be in different section from the pdf def section
+-minor bug fix
+-other minor changes to reduce the code
+
+15 Feb 2005 Lei Zhang
+Pdf parameters can be either RooRealVar or RooFormulaVar
+-yaQ2BExpPdf: RooExponential pdf added
+-yaQ2BBifurGaussPdf: replace yaQ2BBGGaussPdf
+-yaQ2BBGGaussPdf: removed
+-other minor changes
+
+14 Feb 2005 Lei Zhang
+The structure of the fitter has been rewritten.
+-yaQ2BConfig: added as base class for reading configs,
+  which are common to all other data/pdf classes.
+-all other changed files: for the new structure
+-the structure is stable
+
+10 Feb 2005 Lei Zhang
+-yaQ2BMLFitter: works with simultaneous fit
+-yaQ2BMLPdf: extended add pdf as protocol pdf for ML fitter added
+
+09 Feb 2005 Lei Zhang
+-yaQ2BStepPdf: RooParametricStepFunction added
+-yaQ2BBasePdf: check yaQ2BPdfs created so pdf with same name will not be
+  duplicated.
+-yaQ2BDatasetDef: RooCategory added
+-yaQ2BKeysPdf: no need to fit on dataset
+-yaQ2BMLFitter: change ml fit option name from mlfitString to mlFitOption
+
+06 Feb 2005 Lei Zhang
+-yaQ2BBasePdf: can deal with multi-variate plot
+
+05 Feb 2005 Lei Zhang
+-yaQ2BGenericPdf: RooGenericPdf based on RooFormulaVar
+-yaQ2BKeysPdf: 1D/2D Keys pdf, added
+-yaQ2BGaussianPdf: works also for BreitWigner pdf
+-yaQ2BPolynomialPdf: works also for Chebychev pdf
+-yaQ2BTwoGaussPdf, yaQ2BTriGaussPdf: swap gauss params so that
+  sigmaC<=sigmaT, sigma1<=sigma2<=sigma3
+-yaQ2BBasePdf: add chisquare to the plot, also use doParamsOnPlot to plot (modified version of
+  paramOn of RooAbsPdf)
+-doc/yaQ2BFit/demo.config: updated demos to use BreitWigner, Chebychev,
+  Keys, and Generic pdfs.
+  And also for use of paramsOnPlot and chi2OnPlot options.
+
+03 Feb 2005 Lei Zhang
+-bin_Q2BFit.mk
+ link_Q2BFit.mk: add RooFitBabar into link lib path
+-yaQ2BCBShapePdf: Crystal Ball pdf added
+-yaQ2BTriGaussPdf: TripleGaussian added
+-yaQ2BBasePdf.cc: make TriGaussian and CBShape visible
+-doc/yaQ2BFit/demo.config: updated demos to use TriGaussian and CBShape Pdf
+
+03 Feb 2005 Lei Zhang
+-yaQ2BArgusPdf: ArgusBG Pdf added
+-yaQ2BBasePdf:
+  * simplify the pdf creation schema
+  * data structure changed so that multi-variate pdf possible for a primary
+    pdf. (ie, add two RooArgList lists, _obsList, _depList, to replace
+    single observable, _theObs)
+  * add config option so that dependents of pdf can be derived from
+    observables through RooFormulaVar
+-other yaQ2B classes, minor changes to adopt derived dependents
+-doc/yaQ2BFit/: demo.config dsConfig.config
+  sample config files
+
+02 Feb 2005 Lei Zhang
+-yaQ2BFit, the new mlFitter for rare B study, added.
+  all the source files for this fitter have prefix yaQ2B. (yet another
+  (Q2B)Fitter). Now the implemented functions of the fitter include pdf
+  fitting, pdf plotting, ml fitting, (pure, embedded) toy study.
+  More will be added so that it can at least do what the old fitter does.
+  It serves as a wrapper of RooFit and Root so that most of ml fitting
+  action (and plotting, etc) are driven by readable (ascii) config file.
+
+  The classes/source codes of the mlFitter can be classified into three
+  groups:
+  1) auxiliary classes/codes
+     yaQ2BFit.cc: the main program
+       It first instantiates dataset definition class to define dataset,
+       then it reads in all the datasets through dataset class,
+       then it instantiates mlFitter class so that all the pdf are
+       created, and finally it calls run() of the fitter to finish the job.
+       If successfully compiled and linked, type yaQ2BFit in workdir
+       to see short help page.
+     yaQ2BStringParser: breaks a string into tokens separated by spaces.
+       characters inside quote(") are considered one token
+  2) dataset classes
+     yaQ2BDatasetDef: defines the format of dataset
+     yaQ2BDatasets: holds all the datasets read in from ascii or root
+       files, and datasets derived from those primary datasets.
+  3) pdf classes
+     yaQ2BBasePdf: the base class of pdf builder
+       It has several variables common to all the pdf builders,
+       and after created, it calls init() for initialization.
+     yaQ2BCompBase: the base class for composite pdf builder (add and
+       product for now)
+     yaQ2BProdPdf: product pdf builder
+     yaQ2BAddPdf: add pdf builder
+     yaQ2BMLFitter: mlfitter class, sub-class of yaQ2BAddPdf
+       the main program, yaQ2BFit.cc, builds pdfs from top to bottom by
+       instantiating a object of yaQ2BMLFitter.
+       the fitter's actions (fitting, plotting, etc) are done through
+       calling its run() function by the main program. In the run()
+       function, the fitter will read in additional options for each
+       pdf before any other actions.
+     yaQ2BBGGaussPdf (Bifur-Gaussian), yaQ2BGaussianPdf (Gaussian),
+     yaQ2BPolynomialPdf (Polynomial), yaQ2BTwoGaussPdf (Double-Gaussian):
+       individual pdf builders. Will add more.
+
+  The structure of config file:
+  The sections in config file are in three groups:
+  1) Dataset: has two sections
+      [Dataset Config]
+    This section defines the format of all the datasets
+    and is read by yaQ2BDatasetDef.
+    For the purpose of reusability of the format section and
+    conciseness of config file, it is recommended the contents of
+    this section put in a separate file and included in this section
+    by include directive of RooFit
+      [Dataset Input]
+    This section defines all the datasets and is read by yaQ2BDatasets.
+    The section name can be changed by -D option at command line.
+  2) Pdf Config: has several pdf config sections
+      [mlFitter Config]
+    This section defines the fitter function (ml function).
+    The section name can be changed by -C option at command line.
+    Pdfs as ingredients for ml function are configured by their own
+    sections. The section names of such pdfs consist of pdf name, pdf
+    type, etc, for example:
+      [ContinuumPdf Config]
+    could be the section for continuum pdf
+      [de Polynomial ContinuumPdf Config]
+    could be the section for de continuum pdf.
+  3) mlFitter Action Config: controls the fitter's behavior
+      [Action Config]
+    This section drives the fitter to finish its job.
+    The section name can be changed by -A option at command line.
+    The actions now available are: pdfFit, postPdfMakePlot (as part of
+    pdfFit), mlFit, and toyStudy. The default for all those actions are
+    no action. So it is possible to have several sections with one action
+    per section, and then run the fitter with -A option to specify which
+    action to finish.
+
+  The new fitter is reasonably independent of RooFit/Root so that there is
+  no need to revise the codes when RooFit/Root upgrades if the external
+  RooFit/Root public function interfaces remain unchanged.

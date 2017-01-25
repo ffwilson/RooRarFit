@@ -1,0 +1,7 @@
+Checking for source directory
+Result: /Users/fwilson/Packages/root/v5.34.32
+Invoked on hepmbp7
+   with Darwin hepmbp7 14.4.0 Darwin Kernel Version 14.4.0: Thu May 28 11:35:04 PDT 2015; root:xnu-2782.30.5~1/RELEASE_X86_64 x86_64
+   at Tue Aug  4 20:20:22 BST 2015:
+   /Users/fwilson/Packages/root/v5.34.32/configure
+     "--help"

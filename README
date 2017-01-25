@@ -1,0 +1,128 @@
+
+RooRarFit is a General Maximum Likelihood Fitter Package based on ROOT/RooFit
+
+Documentation
+-------------
+
+See the website at http://rarfit.sourceforge.net. The source code for
+the documentation is included in the download file and can be
+recreated using doxygen or makeinfo. See make file in ./doc
+subdirectory.
+
+Installation
+------------
+
+Download the tar file from http://rarfit.sourceforge.net. Before
+compiling, make sure ROOT is installed (http://root.cern.ch/drupal)
+and that $ROOTSYS is defined.
+
+> echo $ROOTSYS
+> tar -zxvf RooRarFit.VXX-YY-ZZZ.tar.gz
+> cd RooRarFit
+> make -f GNUmakefile bin
+
+This will create the executable in ./tmp
+
+> ./tmp/rarFit
+
+Assuming ./tmp is in your path, you can run the code using some of the
+examples from below e.g. :
+
+> ./tmp/rarFit -A PdfAct doc/tutorial/tutorial.config
+
+Regression testing data
+-----------------------
+
+To generate a dataset that can be used for regression testing or tutorials:
+
+) make sure $ROOTSYS is defined
+) create a subdirectory ./Ntuples
+) run the command:
+> $ROOTSYS/bin/root -b -q -l doc/tutorial/make_data.C |& tee make_data.txt
+
+This will create 3 datasets (in ascii and root format) in ./Ntuples
+
+Ntuples/tut_bkg.{dat,root}
+Ntuples/tut_signal.{dat,root}
+Ntuples/tut_uds.{dat,root}
+
+The dataset is a simulated B0/B0bar (or B+/B-) decay at the
+b-factories. The dataset can be used to measure branching fractions,
+charge CP asymmetries and Time-dependent CP Violation with
+event-by-event errors.
+
+The datasets contain the following variables:
+
+) mes : B mass (GeV/c^2).
+) deltae : Difference in energy of B and sqrt(s)/2 (GeV).
+) mass : A resonance mass (GeV/c^2).
+) nn : a Multi-Variate distribution (e.g. Fisher).
+) dt : Time difference between the two B decays (ps).
+) tag : Flavour tag (B0=1,B0bar=-1) if data treated as B0/B0bar decay.
+) sigmode : a flag that indicates if the K* decayed to K+pi- or K0s
+pi0. This can be used as a test of Simultaneous fits and branching
+fraction measurements.
+) charge : the charge (B+=+1,B-=-1) if data treated as B+/B-
+decay. The signal has a charge asymmetry Acp = -0.05.
+) run : a run number (500/1000=signal, 2000=uds, 3000=bkg).
+) dterr : the error on the time difference, dt (ps).
+
+Configuration files
+-------------------
+
+Once the dataset has been generated, the configuration files can be
+used to test various aspects of RooRarFit
+
+Example 1 (Yields and Actions):
+------------------------------
+
+) To fit the PDFs for a signal yield measurement
+
+> rarFit -A PdfAct doc/tutorial/tutorial.config 
+
+) To extract the yield form a simulated "real" dataset
+
+> rarFit -A MLAct doc/tutorial/tutorial.config 
+
+) To generate projection plots of the yield
+
+> rarFit -A ProjAct doc/tutorial/tutorial.config 
+
+) To generate SPlot plots of the yield
+
+> rarFit -A SPlotAct doc/tutorial/tutorial.config 
+
+) To generate a scan of NLL around the yield minimum
+
+> rarFit -A YieldScan doc/tutorial/tutorial.config 
+
+Example 2 (Branching Fraction):
+-------------------------------
+
+) To fit the PDFs for a branching fraction:
+
+> rarFit -A PdfAct -C BFAct doc/tutorial/tutorial.config 
+
+) To extract the branching fraction from a simulated "real" dataset
+
+> rarFit -A MLAct -C BFAct doc/tutorial/tutorial.config 
+
+Example 3 (Charged asymmetries):
+--------------------------------
+
+) To fit the PDFs for a charged Acp measurement, first change
+"simultaneousFit = no" to "simultaneousFit = yes". Then:
+
+> rarFit -A PdfAct doc/tutorial/tutorial.config 
+
+> rarFit -A MLAct doc/tutorial/tutorial.config 
+
+Example 4 (Time dependent asymmetries)
+--------------------------------------
+
+) To fit the PDFs for a Time dependent measurement,
+
+> rarFit -A PdfAct doc/tutorial/tutorial_v3.config 
+
+> rarFit -A MLAct doc/tutorial/tutorial_v3.config 
+
